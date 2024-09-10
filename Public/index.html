@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Client</h2>
+    <button id="btn">click me</button>
+    <p id="para"></p>
+
+    <br />
+    <input id="message" type="text" placeholder="type your message..." />
+    <button id="send">Send</button>
+    <div id="messages"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const para = document.getElementById("para");
+      const mBox = document.getElementById("messages");
+
+      btn.onclick = () => {
+        console.log("clicked");
+        para.innerText = "Welcome !";
+      };
+
+      const socket = io();
+      const send = document.getElementById("send");
+      const messageEle = document.getElementById("message");
+
+      send.onclick = () => {
+        const message = messageEle.value;
+        console.log("message:", message);
+
+        socket.emit("userMessage", message);
+      };
+      socket.on("recieverMessage", (m) => {
+        console.log("recieved message:", m);
+        const p = document.createElement("p");
+
+        p.innerText = m;
+        mBox.appendChild(p);
+        n;
+      });
+    </script>
+  </body>
+</html>
